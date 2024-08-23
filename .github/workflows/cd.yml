@@ -1,0 +1,30 @@
+name: CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.12
+      - name: Build and push Docker image
+        run: |
+          docker build -t dna-analysis:latest .
+          docker tag dna-analysis:latest your-docker-repo/dna-analysis:latest
+          docker push your-docker-repo/dna-analysis:latest
+      - name: Deploy to Production
+        run: echo "Deploying to production server..."
+      - name: Deploy to Heroku
+        uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: "dna-analysis-app"
+          heroku_email: "your-email@example.com"
+

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DNA Analysis Report</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>DNA Analysis Report</h1>
+    <p>Sequence: {{ dna_sequence.sequence }}</p>
+    <p>Analysis Result: {{ dna_sequence.analysis_result }}</p>
+    <a href="{{ url_for('index') }}">Analyze Another Sequence</a>
+</body>
+</html>
